@@ -136,56 +136,48 @@
         "id": "USING_OPEN_J9",
         "name": "使用了不兼容的OpenJ9",
         "description": "你使用了不兼容的OpenJ9 Java环境，导致游戏崩溃。\\n\\n请改用Oracle Java或AdoptOpenJDK的Hotspot版本。",
-        "priority": 0,
-        "promoter_id": 2
+        "priority": 0
     },
     "WATCHDOG_TIMEOUT": {
         "id": "WATCHDOG_TIMEOUT",
         "name": "看门狗生效自动关闭游戏",
         "description": "这个崩溃是因为服务器滞后/卡顿造成的。\\n具体解决方案请查阅：https://www.bilibili.com/opus/752455202183839751",
-        "priority": 0,
-        "promoter_id": 1
+        "priority": 0
     },
     "BIT32_JAVA": {
         "id": "BIT32_JAVA",
         "name": "使用32位Java无法分配足够内存",
         "description": "你正在使用32位Java，这无法分配足够的内存来运行游戏。\\n\\n请安装64位版本的Java。",
-        "priority": 0,
-        "promoter_id": 3
+        "priority": 0
     },
     "Caught Exception from Forge": {
         "id": "Caught Exception from Forge",
         "name": "Forge捕获的模组出错",
         "description": "以下Mod导致了游戏崩溃:\\n[[1]]\\n\\n请更新或移除这些Mod。",
-        "priority": 0,
-        "promoter_id": 1
+        "priority": 0
     },
     "BLOCK_ERROR": {
         "id": "BLOCK_ERROR",
         "name": "特定方块导致崩溃",
         "description": "特定方块导致崩溃:\\n[[1]] [[2]]\\n\\n请尝试进入游戏世界的其他区域，或者使用MCEdit等工具删除这个位置的方块。\\n更多请查阅https://www.bilibili.com/opus/807799450495877206",
-        "priority": 0,
-        "promoter_id": 4
+        "priority": 0
     },
     "ENTITY_ERROR": {
         "id": "ENTITY_ERROR",
         "name": "特定实体导致崩溃",
         "description": "特定实体导致崩溃:\\n[[1]] [[2]]\\n\\n请尝试进入游戏世界的其他区域，或者使用MCEdit等工具删除这个实体。\\n更多请查阅https://www.bilibili.com/opus/807799450495877206",
-        "priority": 0,
-        "promoter_id": 4
+        "priority": 0
     },
     "MOD_INIT_FAILED": {
         "id": "MOD_INIT_FAILED",
         "name": "初始化出错",
         "description": "某些Mod初始化失败...\\n[[1]]\\n导致游戏崩溃。\\n\\n请检查并更新你的Mod。",
-        "priority": 0,
-        "promoter_id": 3
+        "priority": 0
     },
     "MOD_DUPLICATE": {
         "id": "MOD_DUPLICATE",
         "name": "模组重复",
         "description": "以下Mod被重复安装:\\n[[1]]与[[2]]\\n\\n请删除重复的Mod文件，每个Mod只保留一个版本。",
-        "priority": 0,
-        "promoter_id": 3
+        "priority": 0
     }
 }

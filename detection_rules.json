@@ -3,336 +3,288 @@
         "id": "rule_OUT_OF_MEMORY_1",
         "crash_reason_id": "OUT_OF_MEMORY",
         "match_type": 0,
-        "match": "java.lang.OutOfMemoryError",
-        "contributor_id": 3
+        "match": "java.lang.OutOfMemoryError"
     },
     "rule_OUT_OF_MEMORY_2": {
         "id": "rule_OUT_OF_MEMORY_2",
         "crash_reason_id": "OUT_OF_MEMORY",
         "match_type": 0,
-        "match": "Java heap space",
-        "contributor_id": 3
+        "match": "Java heap space"
     },
     "rule_OUT_OF_MEMORY_3": {
         "id": "rule_OUT_OF_MEMORY_3",
         "crash_reason_id": "OUT_OF_MEMORY",
         "match_type": 0,
-        "match": "Unable to allocate",
-        "contributor_id": 3
+        "match": "Unable to allocate"
     },
     "rule_JAVA_VERSION_ERROR_4": {
         "id": "rule_JAVA_VERSION_ERROR_4",
         "crash_reason_id": "JAVA_VERSION_ERROR",
         "match_type": 0,
-        "match": "UnsupportedClassVersionError",
-        "contributor_id": 3
+        "match": "UnsupportedClassVersionError"
     },
     "rule_JAVA_VERSION_ERROR_5": {
         "id": "rule_JAVA_VERSION_ERROR_5",
         "crash_reason_id": "JAVA_VERSION_ERROR",
         "match_type": 0,
-        "match": "Unsupported major.minor version",
-        "contributor_id": 3
+        "match": "Unsupported major.minor version"
     },
     "rule_JAVA_TOO_HIGH_6": {
         "id": "rule_JAVA_TOO_HIGH_6",
         "crash_reason_id": "JAVA_TOO_HIGH",
         "match_type": 0,
-        "match": "java.lang.NoSuchFieldException: ucp",
-        "contributor_id": 3
+        "match": "java.lang.NoSuchFieldException: ucp"
     },
     "rule_JAVA_TOO_HIGH_7": {
         "id": "rule_JAVA_TOO_HIGH_7",
         "crash_reason_id": "JAVA_TOO_HIGH",
         "match_type": 0,
-        "match": "Unable to make protected final java.lang.Class java.lang.ClassLoader.defineClass",
-        "contributor_id": 3
+        "match": "Unable to make protected final java.lang.Class java.lang.ClassLoader.defineClass"
     },
     "rule_DRIVER_ISSUE_8": {
         "id": "rule_DRIVER_ISSUE_8",
         "crash_reason_id": "DRIVER_ISSUE",
         "match_type": 0,
-        "match": "Pixel format not accelerated",
-        "contributor_id": 3
+        "match": "Pixel format not accelerated"
     },
     "rule_DRIVER_ISSUE_9": {
         "id": "rule_DRIVER_ISSUE_9",
         "crash_reason_id": "DRIVER_ISSUE",
         "match_type": 0,
-        "match": "Couldn't set pixel format",
-        "contributor_id": 3
+        "match": "Couldn't set pixel format"
     },
     "rule_DRIVER_ISSUE_10": {
         "id": "rule_DRIVER_ISSUE_10",
         "crash_reason_id": "DRIVER_ISSUE",
         "match_type": 0,
-        "match": "OpenGL Error",
-        "contributor_id": 3
+        "match": "OpenGL Error"
     },
     "rule_DRIVER_ISSUE_11": {
         "id": "rule_DRIVER_ISSUE_11",
         "crash_reason_id": "DRIVER_ISSUE",
         "match_type": 0,
-        "match": "GLStateManager",
-        "contributor_id": 3
+        "match": "GLStateManager"
     },
     "rule_OPENGL_ERROR_12": {
         "id": "rule_OPENGL_ERROR_12",
         "crash_reason_id": "OPENGL_ERROR",
         "match_type": 0,
-        "match": "The driver does not appear to support OpenGL",
-        "contributor_id": 3
+        "match": "The driver does not appear to support OpenGL"
     },
     "rule_SHADER_ERROR_13": {
         "id": "rule_SHADER_ERROR_13",
         "crash_reason_id": "SHADER_ERROR",
         "match_type": 0,
-        "match": "1282: Invalid operation",
-        "contributor_id": 3
+        "match": "1282: Invalid operation"
     },
     "rule_TEXTURE_TOO_LARGE_14": {
         "id": "rule_TEXTURE_TOO_LARGE_14",
         "crash_reason_id": "TEXTURE_TOO_LARGE",
         "match_type": 0,
-        "match": "Unable to fit: Maybe try a lower resolution resourcepack",
-        "contributor_id": 3
+        "match": "Unable to fit: Maybe try a lower resolution resourcepack"
     },
     "rule_OPTIFINE_FORGE_INCOMPATIBLE_15": {
         "id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_15",
         "crash_reason_id": "OPTIFINE_FORGE_INCOMPATIBLE",
         "match_type": 0,
-        "match": "TRANSFORMER/net.optifine/net.optifine.reflect.Reflector.<clinit>",
-        "contributor_id": 3
+        "match": "TRANSFORMER/net.optifine/net.optifine.reflect.Reflector.<clinit>"
     },
     "rule_OPTIFINE_FORGE_INCOMPATIBLE_16": {
         "id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_16",
         "crash_reason_id": "OPTIFINE_FORGE_INCOMPATIBLE",
         "match_type": 0,
-        "match": "java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.texture.SpriteContents.<init>",
-        "contributor_id": 3
+        "match": "java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.texture.SpriteContents.<init>"
     },
     "rule_OPTIFINE_FORGE_INCOMPATIBLE_17": {
         "id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_17",
         "crash_reason_id": "OPTIFINE_FORGE_INCOMPATIBLE",
         "match_type": 0,
-        "match": "java.lang.NoSuchMethodError: 'java.lang.String com.mojang.blaze3d.systems.RenderSystem.getBackendDescription",
-        "contributor_id": 3
+        "match": "java.lang.NoSuchMethodError: 'java.lang.String com.mojang.blaze3d.systems.RenderSystem.getBackendDescription"
     },
     "rule_OPTIFINE_FORGE_INCOMPATIBLE_18": {
         "id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_18",
         "crash_reason_id": "OPTIFINE_FORGE_INCOMPATIBLE",
         "match_type": 0,
-        "match": "java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.block.model.BakedQuad.<init>",
-        "contributor_id": 3
+        "match": "java.lang.NoSuchMethodError: 'void net.minecraft.client.renderer.block.model.BakedQuad.<init>"
     },
     "rule_OPTIFINE_FORGE_INCOMPATIBLE_19": {
         "id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_19",
         "crash_reason_id": "OPTIFINE_FORGE_INCOMPATIBLE",
         "match_type": 0,
-        "match": "java.lang.NoSuchMethodError: 'void net.minecraftforge.client.gui.overlay.ForgeGui.renderSelectedItemName",
-        "contributor_id": 3
+        "match": "java.lang.NoSuchMethodError: 'void net.minecraftforge.client.gui.overlay.ForgeGui.renderSelectedItemName"
     },
     "rule_OPTIFINE_FORGE_INCOMPATIBLE_20": {
         "id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_20",
         "crash_reason_id": "OPTIFINE_FORGE_INCOMPATIBLE",
         "match_type": 0,
-        "match": "java.lang.NoSuchMethodError: 'void net.minecraft.server.level.DistanceManager",
-        "contributor_id": 3
+        "match": "java.lang.NoSuchMethodError: 'void net.minecraft.server.level.DistanceManager"
     },
     "rule_OPTIFINE_FORGE_INCOMPATIBLE_21": {
         "id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_21",
         "crash_reason_id": "OPTIFINE_FORGE_INCOMPATIBLE",
         "match_type": 0,
-        "match": "java.lang.NoSuchMethodError: 'net.minecraft.network.chat.FormattedText net.minecraft.client.gui.Font.ellipsize",
-        "contributor_id": 3
+        "match": "java.lang.NoSuchMethodError: 'net.minecraft.network.chat.FormattedText net.minecraft.client.gui.Font.ellipsize"
     },
     "rule_OPTIFINE_WORLD_LOAD_ERROR_22": {
         "id": "rule_OPTIFINE_WORLD_LOAD_ERROR_22",
         "crash_reason_id": "OPTIFINE_WORLD_LOAD_ERROR",
         "match_type": 0,
-        "match": "java.lang.NoSuchMethodError: net.minecraft.world.server.ChunkManager$ProxyTicketManager.shouldForceTicks(J)Z",
-        "contributor_id": 3
+        "match": "java.lang.NoSuchMethodError: net.minecraft.world.server.ChunkManager$ProxyTicketManager.shouldForceTicks(J)Z"
     },
     "rule_MULTIPLE_FORGE_23": {
         "id": "rule_MULTIPLE_FORGE_23",
         "crash_reason_id": "MULTIPLE_FORGE",
         "match_type": 0,
-        "match": "Found multiple arguments for option fml.forgeVersion, but you asked for only one",
-        "contributor_id": 3
+        "match": "Found multiple arguments for option fml.forgeVersion, but you asked for only one"
     },
     "rule_FORGE_INCOMPLETE_24": {
         "id": "rule_FORGE_INCOMPLETE_24",
         "crash_reason_id": "FORGE_INCOMPLETE",
         "match_type": 0,
-        "match": "Invalid paths argument, contained no existing paths",
-        "contributor_id": 3
+        "match": "Invalid paths argument, contained no existing paths"
     },
     "rule_FORGE_INCOMPLETE_25": {
         "id": "rule_FORGE_INCOMPLETE_25",
         "crash_reason_id": "FORGE_INCOMPLETE",
         "match_type": 0,
-        "match": "Cannot find launch target fmlclient, unable to launch",
-        "contributor_id": 3
+        "match": "Cannot find launch target fmlclient, unable to launch"
     },
     "rule_FORGE_JAVA_INCOMPATIBLE_26": {
         "id": "rule_FORGE_JAVA_INCOMPATIBLE_26",
         "crash_reason_id": "FORGE_JAVA_INCOMPATIBLE",
         "match_type": 0,
-        "match": "java.lang.NoSuchMethodError: sun.security.util.ManifestEntryVerifier",
-        "contributor_id": 3
+        "match": "java.lang.NoSuchMethodError: sun.security.util.ManifestEntryVerifier"
     },
     "rule_MANUAL_DEBUG_CRASH_27": {
         "id": "rule_MANUAL_DEBUG_CRASH_27",
         "crash_reason_id": "MANUAL_DEBUG_CRASH",
         "match_type": 0,
-        "match": "Manually triggered debug crash",
-        "contributor_id": 3
+        "match": "Manually triggered debug crash"
     },
     "rule_MIXIN_BOOTSTRAP_MISSING_28": {
         "id": "rule_MIXIN_BOOTSTRAP_MISSING_28",
         "crash_reason_id": "MIXIN_BOOTSTRAP_MISSING",
         "match_type": 0,
-        "match": "java.lang.ClassNotFoundException: org.spongepowered.asm.launch.MixinTweaker",
-        "contributor_id": 3
+        "match": "java.lang.ClassNotFoundException: org.spongepowered.asm.launch.MixinTweaker"
     },
     "rule_MOD_EXTRACTED_29": {
         "id": "rule_MOD_EXTRACTED_29",
         "crash_reason_id": "MOD_EXTRACTED",
         "match_type": 0,
-        "match": "The directories below appear to be extracted jar files. Fix this before you continue.",
-        "contributor_id": 3
+        "match": "The directories below appear to be extracted jar files. Fix this before you continue."
     },
     "rule_MOD_EXTRACTED_30": {
         "id": "rule_MOD_EXTRACTED_30",
         "crash_reason_id": "MOD_EXTRACTED",
         "match_type": 0,
-        "match": "Extracted mod jars found, loading will NOT continue",
-        "contributor_id": 3
+        "match": "Extracted mod jars found, loading will NOT continue"
     },
     "rule_MOD_CONFIG_ERROR_31": {
         "id": "rule_MOD_CONFIG_ERROR_31",
         "crash_reason_id": "MOD_CONFIG_ERROR",
         "match_type": 0,
-        "match": "com.electronwill.nightconfig.core.io.ParsingException: Not enough data available",
-        "contributor_id": 3
+        "match": "com.electronwill.nightconfig.core.io.ParsingException: Not enough data available"
     },
     "rule_MOD_SPECIAL_CHARS_32": {
         "id": "rule_MOD_SPECIAL_CHARS_32",
         "crash_reason_id": "MOD_SPECIAL_CHARS",
         "match_type": 0,
-        "match": "Invalid module name: '' is not a Java identifier",
-        "contributor_id": 3
+        "match": "Invalid module name: '' is not a Java identifier"
     },
     "rule_MOD_REQUIRES_JAVA11_33": {
         "id": "rule_MOD_REQUIRES_JAVA11_33",
         "crash_reason_id": "MOD_REQUIRES_JAVA11",
         "match_type": 0,
-        "match": "has been compiled by a more recent version of the Java Runtime (class file version 55.0)",
-        "contributor_id": 3
+        "match": "has been compiled by a more recent version of the Java Runtime (class file version 55.0)"
     },
     "rule_MOD_REQUIRES_JAVA11_34": {
         "id": "rule_MOD_REQUIRES_JAVA11_34",
         "crash_reason_id": "MOD_REQUIRES_JAVA11",
         "match_type": 0,
-        "match": "java.lang.RuntimeException: java.lang.NoSuchMethodException: no such method: sun.misc.Unsafe.defineAnonymousClass",
-        "contributor_id": 3
+        "match": "java.lang.RuntimeException: java.lang.NoSuchMethodException: no such method: sun.misc.Unsafe.defineAnonymousClass"
     },
     "rule_MOD_REQUIRES_JAVA11_35": {
         "id": "rule_MOD_REQUIRES_JAVA11_35",
         "crash_reason_id": "MOD_REQUIRES_JAVA11",
         "match_type": 0,
-        "match": "java.lang.IllegalArgumentException: The requested compatibility level JAVA_11 could not be set",
-        "contributor_id": 3
+        "match": "java.lang.IllegalArgumentException: The requested compatibility level JAVA_11 could not be set"
     },
     "rule_MOD_TOO_MANY_36": {
         "id": "rule_MOD_TOO_MANY_36",
         "crash_reason_id": "MOD_TOO_MANY",
         "match_type": 0,
-        "match": "Mod ID exceeds maximum length",
-        "contributor_id": 3
+        "match": "Mod ID exceeds maximum length"
     },
     "rule_WATCHDOG_TIMEOUT_37": {
         "id": "rule_WATCHDOG_TIMEOUT_37",
         "crash_reason_id": "WATCHDOG_TIMEOUT",
         "match_type": 0,
-        "match": "A single server tick took",
-        "contributor_id": 1
+        "match": "A single server tick took"
     },
     "rule_WATCHDOG_TIMEOUT_38": {
         "id": "rule_WATCHDOG_TIMEOUT_38",
         "crash_reason_id": "WATCHDOG_TIMEOUT",
         "match_type": 0,
-        "match": "Considering it to be crashed, server will forcibly shutdown.",
-        "contributor_id": 1
+        "match": "Considering it to be crashed, server will forcibly shutdown."
     },
     "rule_WATCHDOG_TIMEOUT_39": {
         "id": "rule_WATCHDOG_TIMEOUT_39",
         "crash_reason_id": "WATCHDOG_TIMEOUT",
         "match_type": 0,
-        "match": "java.lang.Error: Watchdog",
-        "contributor_id": 1
+        "match": "java.lang.Error: Watchdog"
     },
     "rule_WATCHDOG_TIMEOUT_40": {
         "id": "rule_WATCHDOG_TIMEOUT_40",
         "crash_reason_id": "WATCHDOG_TIMEOUT",
         "match_type": 0,
-        "match": "ServerHangWatchdog detected that a single server tick took",
-        "contributor_id": 1
+        "match": "ServerHangWatchdog detected that a single server tick took"
     },
     "rule_BIT32_JAVA_41": {
         "id": "rule_BIT32_JAVA_41",
         "crash_reason_id": "BIT32_JAVA",
         "match_type": 0,
-        "match": "Invalid maximum heap size",
-        "contributor_id": 3
+        "match": "Invalid maximum heap size"
     },
     "rule_BIT32_JAVA_42": {
         "id": "rule_BIT32_JAVA_42",
         "crash_reason_id": "BIT32_JAVA",
         "match_type": 0,
-        "match": "Could not reserve enough space",
-        "contributor_id": 3
+        "match": "Could not reserve enough space"
     },
     "rule_Caught Exception from Forge_43": {
         "id": "rule_Caught Exception from Forge_43",
         "crash_reason_id": "Caught Exception from Forge",
         "match_type": 1,
-        "match": "Caught exception from ([^\\n]+)",
-        "contributor_id": 1
+        "match": "Caught exception from ([^\\n]+)"
     },
     "rule_BLOCK_ERROR_44": {
         "id": "rule_BLOCK_ERROR_44",
         "crash_reason_id": "BLOCK_ERROR",
         "match_type": 1,
-        "match": "\\tBlock: Block\\{([^\\}]+)\\}.*\\tBlock location: World: (\\([^\\)]+\\))",
-        "contributor_id": 1
+        "match": "\\tBlock: Block\\{([^\\}]+)\\}.*\\tBlock location: World: (\\([^\\)]+\\))"
     },
     "rule_ENTITY_ERROR_45": {
         "id": "rule_ENTITY_ERROR_45",
         "crash_reason_id": "ENTITY_ERROR",
         "match_type": 1,
-        "match": "Entity Type: ([^\\n]+).*?Entity’s Exact location: ([^\\n]+)",
-        "contributor_id": 1
+        "match": "Entity Type: ([^\\n]+).*?Entity’s Exact location: ([^\\n]+)"
     },
     "rule_MOD_INIT_FAILED_46": {
         "id": "rule_MOD_INIT_FAILED_46",
         "crash_reason_id": "MOD_INIT_FAILED",
         "match_type": 1,
-        "match": "Failed to create mod instance. ModID: ([^,]+)",
-        "contributor_id": 1
+        "match": "Failed to create mod instance. ModID: ([^,]+)"
     },
     "rule_MOD_INIT_FAILED_47": {
         "id": "rule_MOD_INIT_FAILED_47",
         "crash_reason_id": "MOD_INIT_FAILED",
         "match_type": 0,
-        "match": "Failed to create mod instance.",
-        "contributor_id": 1
+        "match": "Failed to create mod instance."
     },
     "rule_MOD_DUPLICATE_48": {
         "id": "rule_MOD_DUPLICATE_48",
         "crash_reason_id": "MOD_DUPLICATE",
         "match_type": 1,
-        "match": "Found duplicate mods:\\s*Mod ID: '.*?' from mod files: ([^,]+), ([^\\n]+)",
-        "contributor_id": 1
+        "match": "Found duplicate mods:\\s*Mod ID: '.*?' from mod files: ([^,]+), ([^\\n]+)"
     }
 }
