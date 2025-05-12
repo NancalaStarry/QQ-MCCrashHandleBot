@@ -1,0 +1,18 @@
+
+# Configuration for the chatbot
+
+# Cache file path
+cache_file_path: "cache"
+
+# Crash reason database file path
+crash_reason_database_path: "crash_reasons.json"
+
+# QQ number
+QQ_number: 3630124032
+
+# Websocket URL
+ws_uri: "ws://127.0.0.1:3002"
+
+# Group whitelist
+group_whitelist:
+    - 660119486
