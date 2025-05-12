@@ -43,7 +43,6 @@ async def on_group_msg(msg: GroupMessage):
                     await handle_crash_file()
                 else:
                     print("文件过大或格式不正确，无法处理", file_size,"and", file_source)
-                    await msg.reply(text="文件过大或格式不正确，无法处理", is_file=False)
 
 # 处理崩溃文件
 async def handle_crash_file():
