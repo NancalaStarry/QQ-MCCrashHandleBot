@@ -27,8 +27,7 @@ class CrashReason:
             "id": self.id,
             "name": self.name,
             "description": self.description,
-            "priority": self.priority,
-            "promoter_id": self.promoter_id
+            "priority": self.priority
         }
 
 @dataclass
@@ -54,8 +53,7 @@ class DetectionRule:
             "id": self.id,
             "crash_reason_id": self.crash_reason_id,
             "match_type": self.match_type,
-            "match": self.match,
-            "contributor_id": self.contributor_id
+            "match": self.match
         }
 
 
@@ -91,6 +89,7 @@ class CrashReasonDatabase:
         self.load_persons()
         self.load_crash_reasons()
         self.load_detection_rules()
+        self.load_crash_promoters()
         self.load_rule_contributors()
 
     # 添加新的加载方法
@@ -243,11 +242,6 @@ class CrashReasonDatabase:
 
     # CrashReason methods
     def add_crash_reason(self, crash_reason: CrashReason) -> bool:
-        # Verify promoter exists
-        if not self.get_person(crash_reason.promoter_id):
-            print(f"Promoter with ID {crash_reason.promoter_id} does not exist.")
-            return False
-
         if crash_reason.id in self.crash_reasons:
             print(f"Crash reason with ID {crash_reason.id} already exists.")
             return False
@@ -263,20 +257,13 @@ class CrashReasonDatabase:
             id=data["id"],
             name=data["name"],
             description=data["description"],
-            priority=data["priority"],
-            promoter_id=data["promoter_id"]
+            priority=data["priority"]
         )
-
     # DetectionRule methods
     def add_detection_rule(self, rule: DetectionRule) -> bool:
         # Verify crash_reason exists
         if not self.get_crash_reason(rule.crash_reason_id):
             print(f"Crash reason with ID {rule.crash_reason_id} does not exist.")
-            return False
-
-        # Verify contributor exists
-        if not self.get_person(rule.contributor_id):
-            print(f"Contributor with ID {rule.contributor_id} does not exist.")
             return False
 
         if rule.id in self.detection_rules:
@@ -293,22 +280,21 @@ class CrashReasonDatabase:
                     id=rule_id,
                     crash_reason_id=rule_data["crash_reason_id"],
                     match_type=rule_data["match_type"],
-                    match=rule_data["match"],
-                    contributor_id=rule_data["contributor_id"]
+                    match=rule_data["match"]
                 ))
         return rules
 
     # Helper methods to maintain compatibility with original code
-    def get_crash_with_rules(self, crash_reason_id: str) -> Dict:
+    def get_crash_with_rules(self, crash_reason_id: str) -> Optional[Dict]:
         crash_reason = self.get_crash_reason(crash_reason_id)
         if not crash_reason:
             return None
 
         rules = self.get_detection_rules_for_crash(crash_reason_id)
-        promoter = self.get_person(crash_reason.promoter_id)
+        promoters = self.get_promoters_for_crash(crash_reason_id)
 
         return {
             "crash_reason": crash_reason,
             "detection_rules": rules,
-            "promoter": promoter
+            "promoters": promoters
         }

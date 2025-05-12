@@ -142,8 +142,7 @@ class CrashDatabaseManager:
                 id=reason_data["id"],
                 name=reason_data["name"],
                 description=reason_data["description"],
-                priority=reason_data["priority"] or 0,
-                promoter_id=reason_data["promoter_id"]
+                priority=reason_data["priority"] or 0
             )
             crash_reasons.append(crash_reason)
 
@@ -152,13 +151,13 @@ class CrashDatabaseManager:
 
         # Add crash reasons to treeview
         for reason in crash_reasons:
-            # Get promoter name
-            promoter = self.database.get_person(reason.promoter_id)
-            promoter_name = promoter.name if promoter else "Unknown"
+            # Get promoter names
+            promoters = self.database.get_promoters_for_crash(reason.id)
+            promoter_names = ", ".join([p.name for p in promoters]) if promoters else "None"
 
             self.crash_reasons_tree.insert("", tk.END,
                                            values=(reason.id, reason.name, reason.description,
-                                                   reason.priority, promoter_name))
+                                                   reason.priority, promoter_names))
 
         # Update the combobox in detection rules tab
         self.crash_reason_combo['values'] = list(self.database.crash_reasons.keys())
@@ -169,22 +168,25 @@ class CrashDatabaseManager:
         # Create a dialog for adding a new crash reason
         dialog = CrashReasonDialog(self.root, "Add Crash Reason")
         if dialog.result:
-            id_val, name, description, priority, promoter_name = dialog.result
-
-            # Get or create promoter by name
-            promoter_id = self._get_or_create_person(promoter_name)
-            if not promoter_id:
-                return
+            id_val, name, description, priority, promoter_names = dialog.result
 
             # Create and add the crash reason
             crash_reason = CrashReason(
                 id=id_val,
                 name=name,
                 description=description,
-                priority=priority,
-                promoter_id=promoter_id
+                priority=priority
             )
             if self.database.add_crash_reason(crash_reason):
+                # Add promoters
+                for promoter_name in promoter_names.split(','):
+                    promoter_name = promoter_name.strip()
+                    if not promoter_name:
+                        continue
+                    promoter_id = self._get_or_create_person(promoter_name)
+                    if promoter_id:
+                        self.database.add_crash_promoter(id_val, promoter_id)
+
                 self.refresh_crash_reasons()
                 self.status_var.set(f"Added crash reason: {id_val}")
             else:
@@ -197,28 +199,42 @@ class CrashDatabaseManager:
             return
 
         item = self.crash_reasons_tree.item(selection[0])
-        id_val, name, description, priority, promoter = item['values']
+        id_val, name, description, priority, promoters = item['values']
 
         dialog = CrashReasonDialog(self.root, "Edit Crash Reason",
-                                   initial_values=(id_val, name, description, priority, promoter))
+                                   initial_values=(id_val, name, description, priority, promoters))
 
         if dialog.result:
-            new_id, new_name, new_description, new_priority, new_promoter_name = dialog.result
-
-            # Get or create promoter by name
-            promoter_id = self._get_or_create_person(new_promoter_name)
-            if not promoter_id:
-                return
+            new_id, new_name, new_description, new_priority, new_promoter_names = dialog.result
 
             # If ID changed, delete old and create new
             if new_id != id_val:
                 if id_val in self.database.crash_reasons:
                     del self.database.crash_reasons[id_val]
+                    # Need to delete old promoter relationships
+                    for key in list(self.database.crash_promoters.keys()):
+                        if key.startswith(f"{id_val}_"):
+                            del self.database.crash_promoters[key]
 
             # Create and add updated crash reason
-            new_reason = CrashReason(id=new_id, name=new_name, description=new_description,
-                                     priority=new_priority, promoter_id=promoter_id)
+            new_reason = CrashReason(id=new_id, name=new_name, description=new_description, priority=new_priority)
             self.database.add_crash_reason(new_reason)
+
+            # Clear old promoters
+            for key in list(self.database.crash_promoters.keys()):
+                if key.startswith(f"{new_id}_"):
+                    del self.database.crash_promoters[key]
+
+            # Add new promoters
+            for promoter_name in new_promoter_names.split(','):
+                promoter_name = promoter_name.strip()
+                if not promoter_name:
+                    continue
+                promoter_id = self._get_or_create_person(promoter_name)
+                if promoter_id:
+                    self.database.add_crash_promoter(new_id, promoter_id)
+
+            self.database.save_crash_promoters()
             self.refresh_crash_reasons()
             self.status_var.set(f"Updated crash reason: {new_id}")
 
@@ -256,10 +272,11 @@ class CrashDatabaseManager:
         # Add detection rules to treeview
         for i, rule in enumerate(detection_rules):
             match_type = "Exact" if rule.match_type == 0 else "Regex"
-            contributor = self.database.get_person(rule.contributor_id)
-            contributor_name = contributor.name if contributor else "Unknown"
+            contributors = self.database.get_contributors_for_rule(rule.id)
+            contributor_names = ", ".join([c.name for c in contributors]) if contributors else "None"
+
             self.rules_tree.insert("", tk.END, iid=str(i),
-                                   values=(match_type, rule.match, contributor_name))
+                                   values=(match_type, rule.match, contributor_names))
 
         self.status_var.set(f"Loaded {len(detection_rules)} detection rules for {selected_reason}")
 
@@ -273,12 +290,7 @@ class CrashDatabaseManager:
         # Create a dialog for adding a new detection rule
         dialog = DetectionRuleDialog(self.root, "Add Detection Rule")
         if dialog.result:
-            match_type, match, contributor_name = dialog.result
-
-            # Find contributor by name or prompt to create one
-            contributor_id = self._get_or_create_person(contributor_name)
-            if not contributor_id:
-                return
+            match_type, match, contributor_names = dialog.result
 
             # Create a unique ID for the detection rule
             rule_id = f"rule_{selected_reason}_{len(self.database.detection_rules) + 1}"
@@ -288,11 +300,19 @@ class CrashDatabaseManager:
                 id=rule_id,
                 crash_reason_id=selected_reason,
                 match_type=match_type,
-                match=match,
-                contributor_id=contributor_id
+                match=match
             )
 
             if self.database.add_detection_rule(rule):
+                # Add contributors
+                for contributor_name in contributor_names.split(','):
+                    contributor_name = contributor_name.strip()
+                    if not contributor_name:
+                        continue
+                    contributor_id = self._get_or_create_person(contributor_name)
+                    if contributor_id:
+                        self.database.add_rule_contributor(rule_id, contributor_id)
+
                 self.load_detection_rules()
                 self.status_var.set(f"Added detection rule to {selected_reason}")
             else:
@@ -333,24 +353,19 @@ class CrashDatabaseManager:
         # Get the actual rule object
         rule = rules[rule_index]
 
-        # Get contributor name
-        contributor = self.database.get_person(rule.contributor_id)
-        contributor_name = contributor.name if contributor else "Unknown"
+        # Get contributor names
+        contributors = self.database.get_contributors_for_rule(rule.id)
+        contributor_names = ", ".join([c.name for c in contributors]) if contributors else ""
 
         # Match type string
         match_type_str = "Exact" if rule.match_type == 0 else "Regex"
 
         # Display the edit dialog
         dialog = DetectionRuleDialog(self.root, "Edit Detection Rule",
-                                     initial_values=(rule.match_type, rule.match, contributor_name))
+                                     initial_values=(rule.match_type, rule.match, contributor_names))
 
         if dialog.result:
-            new_match_type, new_match, new_contributor_name = dialog.result
-
-            # Get or create contributor by name
-            contributor_id = self._get_or_create_person(new_contributor_name)
-            if not contributor_id:
-                return
+            new_match_type, new_match, new_contributor_names = dialog.result
 
             # Update rule in the database
             if rule.id in self.database.detection_rules:
@@ -358,10 +373,25 @@ class CrashDatabaseManager:
                 rule_data = self.database.detection_rules[rule.id]
                 rule_data["match_type"] = new_match_type
                 rule_data["match"] = new_match
-                rule_data["contributor_id"] = contributor_id
 
                 # Save changes
                 self.database.save_detection_rules()
+
+                # Clear old contributors
+                for key in list(self.database.rule_contributors.keys()):
+                    if key.startswith(f"{rule.id}_"):
+                        del self.database.rule_contributors[key]
+
+                # Add new contributors
+                for contributor_name in new_contributor_names.split(','):
+                    contributor_name = contributor_name.strip()
+                    if not contributor_name:
+                        continue
+                    contributor_id = self._get_or_create_person(contributor_name)
+                    if contributor_id:
+                        self.database.add_rule_contributor(rule.id, contributor_id)
+
+                self.database.save_rule_contributors()
                 self.load_detection_rules()
                 self.status_var.set(f"Updated detection rule for {selected_reason}")
 
