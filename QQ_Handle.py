@@ -29,10 +29,10 @@ _log = get_log()
 @bot.group_event()
 async def on_group_msg(msg: GroupMessage):
     if msg.group_id in cf.group_whitelist:
-        print("收到带文件的群消息:", msg)
         message_segs = msg.message
         for message_seg in message_segs:
             if message_seg['type'] == "file":
+                print("收到带文件的群消息:", msg)
                 file_id = message_seg["data"]["file_id"]
                 file_respond = await bot.api.get_file(file_id)
                 file_source = file_respond["data"]["url"]

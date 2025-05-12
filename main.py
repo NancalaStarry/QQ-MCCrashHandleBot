@@ -6,7 +6,7 @@ from enum import Enum
 from typing import List, Optional, Union, Dict
 from flashtext import KeywordProcessor
 
-import crash_database_old
+from CrashDatabase import CrashReasonDatabase
 
 import config_reader
 cf = config_reader.Config()
@@ -72,7 +72,7 @@ class MinecraftCrashAnalyzer:
         self.log_crash = None
         self.log_all = None
         self.crash_reasons = {}
-        self.crashdb = crash_database.CrashReasonDatabase(folder_path)
+        self.crashdb = CrashReasonDatabase(folder_path)
         self.keyword_processor = KeywordProcessor()
 
     def collect_logs(self, folder_path: str) -> bool:
@@ -390,24 +390,28 @@ class MinecraftCrashAnalyzer:
         """
         Analyze text using regex patterns and template to generate formatted results.
         """
-        crash_items = self.crashdb.get_all_crash_reasons()
+        # Get all crash reasons
+        crash_items = []
+        for reason_id, reason_data in self.crashdb.crash_reasons.items():
+            crash_reason = self.crashdb.get_crash_reason(reason_id)
+            if crash_reason:
+                rules = self.crashdb.get_detection_rules_for_crash(reason_id)
+                if rules:
+                    for rule in rules:
+                        if rule.match_type == 1:  # Only include regex rules
+                            crash_items.append({
+                                "reason": crash_reason,
+                                "rule": rule
+                            })
 
-        for crash_item in crash_items:
-            detection_rules = self.crashdb.get_detection_rule(crash_item.id)
-
-            if not detection_rules:
-                continue
-
-            # Filter rules that use keyword matching (match_type == 1)
-            regex_patterns = [(crash_item.id, rule.match) for rule in detection_rules.detectionRule
-                               if rule.match_type == 1 and rule.match]
-
-            # analyze each regex pattern
-            for id, pattern in regex_patterns:
-                results = self.analyze_with_regex(pattern, crash_item.description)
-                if results:
-                    self.append_regex_reason(id, results)
-                    self.log(f"[Regex] Found matching crash reason: {id} - {crash_item.name}")
+        # Process each regex rule
+        for item in crash_items:
+            reason = item["reason"]
+            rule = item["rule"]
+            results = self.analyze_with_regex(rule.match, reason.name)
+            if results:
+                for result in results:
+                    self.append_regex_reason(reason.id, result)
 
 
     def analyze_with_regex(self, pattern: str, template: str) -> List[str]:
@@ -754,13 +758,19 @@ class MinecraftCrashAnalyzer:
         results = []
 
         for reason, details in self.crash_reasons.items():
-            if reason in (self.crashdb.data.keys()):
-                if isinstance(details, list):
-                    details = list(set(details))
-                    details_str = "\n".join(details)
-                if details_str:
-                    desr = details_str.replace("\\n", "\n")
-                    results.append(desr+"\n")
+            if reason in (self.crashdb.crash_reasons.keys()):
+                crash_data = self.crashdb.get_crash_with_rules(reason)
+                if crash_data:
+                    crash_reason = crash_data["crash_reason"]
+                    promoters = crash_data["promoters"]
+                    promoter_names = ", ".join([p.name for p in promoters]) if promoters else "Unknown"
+
+                    formatted_reason = f"崩溃原因：{crash_reason.name}"
+                    if details:
+                        formatted_reason += f" - {details}"
+
+                    formatted_reason += f"\n推荐人：{promoter_names}"
+                    results.append(formatted_reason)
 
             if reason == Special_CrashReason.MOD_MISSING:
                 if details:
@@ -932,10 +942,14 @@ def start_analyzer(logs_folder):
     contributors = []
     for reason, details in analyzer.crash_reasons.items():
         if type(reason) is str:
-            contributors.append(analyzer.crashdb.get_crash_reason(reason).promoter)
+            # Old: contributors.append(analyzer.crashdb.get_crash_reason(reason).promoter)
+            # New:
+            promoters = analyzer.crashdb.get_promoters_for_crash(reason)
+            if promoters:
+                contributors.extend([p.name for p in promoters])
         else:
             contributors.append(reason.value[1])
-    contributors_str = list(set(contributors))
+    contributors_str = ", ".join(list(set(contributors)))
 
     analyzer_result_message = "--- Analysis Result ---" + "\n" + result + "\n" + "--- Detected Crash Reasons ---" + "\n" + \
         "\n".join([f"- {reason}: {details if details else 'No additional details'}" for reason, details in analyzer.crash_reasons.items()]) + \

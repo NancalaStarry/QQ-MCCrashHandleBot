@@ -27,6 +27,10 @@
     "crash_reason_id": "ENTITY_ERROR",
     "person_id": 2
   },
+  "FORGE_INCOMPLETE_1": {
+    "crash_reason_id": "FORGE_INCOMPLETE",
+    "person_id": 1
+  },
   "FORGE_INCOMPLETE_2": {
     "crash_reason_id": "FORGE_INCOMPLETE",
     "person_id": 2
