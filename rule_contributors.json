@@ -1,1 +1,190 @@
-{}
+{
+  "rule_BIT32_JAVA_41_2": {
+    "person_id": 2,
+    "rule_id": "rule_BIT32_JAVA_41"
+  },
+  "rule_BIT32_JAVA_42_2": {
+    "person_id": 2,
+    "rule_id": "rule_BIT32_JAVA_42"
+  },
+  "rule_BLOCK_ERROR_44_1": {
+    "person_id": 1,
+    "rule_id": "rule_BLOCK_ERROR_44"
+  },
+  "rule_Caught Exception from Forge_43_1": {
+    "person_id": 1,
+    "rule_id": "rule_Caught Exception from Forge_43"
+  },
+  "rule_DRIVER_ISSUE_10_2": {
+    "person_id": 2,
+    "rule_id": "rule_DRIVER_ISSUE_10"
+  },
+  "rule_DRIVER_ISSUE_11_2": {
+    "person_id": 2,
+    "rule_id": "rule_DRIVER_ISSUE_11"
+  },
+  "rule_DRIVER_ISSUE_8_2": {
+    "person_id": 2,
+    "rule_id": "rule_DRIVER_ISSUE_8"
+  },
+  "rule_DRIVER_ISSUE_9_2": {
+    "person_id": 2,
+    "rule_id": "rule_DRIVER_ISSUE_9"
+  },
+  "rule_ENTITY_ERROR_45_1": {
+    "person_id": 1,
+    "rule_id": "rule_ENTITY_ERROR_45"
+  },
+  "rule_FORGE_INCOMPLETE_24_2": {
+    "person_id": 2,
+    "rule_id": "rule_FORGE_INCOMPLETE_24"
+  },
+  "rule_FORGE_INCOMPLETE_25_2": {
+    "person_id": 2,
+    "rule_id": "rule_FORGE_INCOMPLETE_25"
+  },
+  "rule_FORGE_JAVA_INCOMPATIBLE_26_2": {
+    "person_id": 2,
+    "rule_id": "rule_FORGE_JAVA_INCOMPATIBLE_26"
+  },
+  "rule_JAVA_TOO_HIGH_6_2": {
+    "person_id": 2,
+    "rule_id": "rule_JAVA_TOO_HIGH_6"
+  },
+  "rule_JAVA_TOO_HIGH_7_2": {
+    "person_id": 2,
+    "rule_id": "rule_JAVA_TOO_HIGH_7"
+  },
+  "rule_JAVA_VERSION_ERROR_4_2": {
+    "person_id": 2,
+    "rule_id": "rule_JAVA_VERSION_ERROR_4"
+  },
+  "rule_JAVA_VERSION_ERROR_5_2": {
+    "person_id": 2,
+    "rule_id": "rule_JAVA_VERSION_ERROR_5"
+  },
+  "rule_MANUAL_DEBUG_CRASH_27_2": {
+    "person_id": 2,
+    "rule_id": "rule_MANUAL_DEBUG_CRASH_27"
+  },
+  "rule_MIXIN_BOOTSTRAP_MISSING_28_2": {
+    "person_id": 2,
+    "rule_id": "rule_MIXIN_BOOTSTRAP_MISSING_28"
+  },
+  "rule_MOD_CONFIG_ERROR_31_2": {
+    "person_id": 2,
+    "rule_id": "rule_MOD_CONFIG_ERROR_31"
+  },
+  "rule_MOD_DUPLICATE_48_1": {
+    "person_id": 1,
+    "rule_id": "rule_MOD_DUPLICATE_48"
+  },
+  "rule_MOD_EXTRACTED_29_2": {
+    "person_id": 2,
+    "rule_id": "rule_MOD_EXTRACTED_29"
+  },
+  "rule_MOD_EXTRACTED_30_2": {
+    "person_id": 2,
+    "rule_id": "rule_MOD_EXTRACTED_30"
+  },
+  "rule_MOD_INIT_FAILED_46_1": {
+    "person_id": 1,
+    "rule_id": "rule_MOD_INIT_FAILED_46"
+  },
+  "rule_MOD_REQUIRES_JAVA11_33_2": {
+    "person_id": 2,
+    "rule_id": "rule_MOD_REQUIRES_JAVA11_33"
+  },
+  "rule_MOD_REQUIRES_JAVA11_34_2": {
+    "person_id": 2,
+    "rule_id": "rule_MOD_REQUIRES_JAVA11_34"
+  },
+  "rule_MOD_REQUIRES_JAVA11_35_2": {
+    "person_id": 2,
+    "rule_id": "rule_MOD_REQUIRES_JAVA11_35"
+  },
+  "rule_MOD_SPECIAL_CHARS_32_2": {
+    "person_id": 2,
+    "rule_id": "rule_MOD_SPECIAL_CHARS_32"
+  },
+  "rule_MOD_TOO_MANY_36_2": {
+    "person_id": 2,
+    "rule_id": "rule_MOD_TOO_MANY_36"
+  },
+  "rule_MULTIPLE_FORGE_23_2": {
+    "person_id": 2,
+    "rule_id": "rule_MULTIPLE_FORGE_23"
+  },
+  "rule_OPENGL_ERROR_12_2": {
+    "person_id": 2,
+    "rule_id": "rule_OPENGL_ERROR_12"
+  },
+  "rule_OPTIFINE_FORGE_INCOMPATIBLE_15_2": {
+    "person_id": 2,
+    "rule_id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_15"
+  },
+  "rule_OPTIFINE_FORGE_INCOMPATIBLE_16_2": {
+    "person_id": 2,
+    "rule_id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_16"
+  },
+  "rule_OPTIFINE_FORGE_INCOMPATIBLE_17_2": {
+    "person_id": 2,
+    "rule_id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_17"
+  },
+  "rule_OPTIFINE_FORGE_INCOMPATIBLE_18_2": {
+    "person_id": 2,
+    "rule_id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_18"
+  },
+  "rule_OPTIFINE_FORGE_INCOMPATIBLE_19_2": {
+    "person_id": 2,
+    "rule_id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_19"
+  },
+  "rule_OPTIFINE_FORGE_INCOMPATIBLE_20_2": {
+    "person_id": 2,
+    "rule_id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_20"
+  },
+  "rule_OPTIFINE_FORGE_INCOMPATIBLE_21_2": {
+    "person_id": 2,
+    "rule_id": "rule_OPTIFINE_FORGE_INCOMPATIBLE_21"
+  },
+  "rule_OPTIFINE_WORLD_LOAD_ERROR_22_2": {
+    "person_id": 2,
+    "rule_id": "rule_OPTIFINE_WORLD_LOAD_ERROR_22"
+  },
+  "rule_OUT_OF_MEMORY_1_2": {
+    "person_id": 2,
+    "rule_id": "rule_OUT_OF_MEMORY_1"
+  },
+  "rule_OUT_OF_MEMORY_2_2": {
+    "person_id": 2,
+    "rule_id": "rule_OUT_OF_MEMORY_2"
+  },
+  "rule_OUT_OF_MEMORY_3_2": {
+    "person_id": 2,
+    "rule_id": "rule_OUT_OF_MEMORY_3"
+  },
+  "rule_SHADER_ERROR_13_2": {
+    "person_id": 2,
+    "rule_id": "rule_SHADER_ERROR_13"
+  },
+  "rule_TEXTURE_TOO_LARGE_14_2": {
+    "person_id": 2,
+    "rule_id": "rule_TEXTURE_TOO_LARGE_14"
+  },
+  "rule_WATCHDOG_TIMEOUT_37_2": {
+    "person_id": 2,
+    "rule_id": "rule_WATCHDOG_TIMEOUT_37"
+  },
+  "rule_WATCHDOG_TIMEOUT_38_1": {
+    "person_id": 1,
+    "rule_id": "rule_WATCHDOG_TIMEOUT_38"
+  },
+  "rule_WATCHDOG_TIMEOUT_39_1": {
+    "person_id": 1,
+    "rule_id": "rule_WATCHDOG_TIMEOUT_39"
+  },
+  "rule_WATCHDOG_TIMEOUT_40_1": {
+    "person_id": 1,
+    "rule_id": "rule_WATCHDOG_TIMEOUT_40"
+  }
+}

@@ -166,7 +166,7 @@ class CrashDatabaseManager:
     def add_crash_reason(self):
         """Add a new crash reason"""
         # Create a dialog for adding a new crash reason
-        dialog = CrashReasonDialog(self.root, "Add Crash Reason")
+        dialog = CrashReasonDialog(self.root,self.database, "Add Crash Reason")
         if dialog.result:
             id_val, name, description, priority, promoter_names = dialog.result
 
@@ -178,14 +178,9 @@ class CrashDatabaseManager:
                 priority=priority
             )
             if self.database.add_crash_reason(crash_reason):
-                # Add promoters
-                for promoter_name in promoter_names.split(','):
-                    promoter_name = promoter_name.strip()
-                    if not promoter_name:
-                        continue
-                    promoter_id = self._get_or_create_person(promoter_name)
-                    if promoter_id:
-                        self.database.add_crash_promoter(id_val, promoter_id)
+                # Add promoters using their IDs directly from the selected persons
+                for pid, _ in dialog.selected_promoters:
+                    self.database.add_crash_promoter(id_val, pid)
 
                 self.refresh_crash_reasons()
                 self.status_var.set(f"Added crash reason: {id_val}")
@@ -201,7 +196,7 @@ class CrashDatabaseManager:
         item = self.crash_reasons_tree.item(selection[0])
         id_val, name, description, priority, promoters = item['values']
 
-        dialog = CrashReasonDialog(self.root, "Edit Crash Reason",
+        dialog = CrashReasonDialog(self.root,self.database, "Edit Crash Reason",
                                    initial_values=(id_val, name, description, priority, promoters))
 
         if dialog.result:
@@ -288,7 +283,7 @@ class CrashDatabaseManager:
             return
 
         # Create a dialog for adding a new detection rule
-        dialog = DetectionRuleDialog(self.root, "Add Detection Rule")
+        dialog = DetectionRuleDialog(self.root,self.database, "Add Detection Rule")
         if dialog.result:
             match_type, match, contributor_names = dialog.result
 
@@ -304,14 +299,9 @@ class CrashDatabaseManager:
             )
 
             if self.database.add_detection_rule(rule):
-                # Add contributors
-                for contributor_name in contributor_names.split(','):
-                    contributor_name = contributor_name.strip()
-                    if not contributor_name:
-                        continue
-                    contributor_id = self._get_or_create_person(contributor_name)
-                    if contributor_id:
-                        self.database.add_rule_contributor(rule_id, contributor_id)
+                # Add contributors using their IDs directly from the selected persons
+                for pid, _ in dialog.selected_contributors:
+                    self.database.add_rule_contributor(rule_id, pid)
 
                 self.load_detection_rules()
                 self.status_var.set(f"Added detection rule to {selected_reason}")
@@ -361,7 +351,7 @@ class CrashDatabaseManager:
         match_type_str = "Exact" if rule.match_type == 0 else "Regex"
 
         # Display the edit dialog
-        dialog = DetectionRuleDialog(self.root, "Edit Detection Rule",
+        dialog = DetectionRuleDialog(self.root,self.database, "Edit Detection Rule",
                                      initial_values=(rule.match_type, rule.match, contributor_names))
 
         if dialog.result:
@@ -427,13 +417,16 @@ class CrashDatabaseManager:
 class CrashReasonDialog:
     """Dialog for adding/editing crash reasons"""
 
-    def __init__(self, parent, title, initial_values=None):
+    def __init__(self, parent, database:CrashReasonDatabase, title, initial_values=None):
         self.result = None
+        self.parent = parent
+        self.selected_promoters = []
+        self.database = database
 
         # Create dialog window
         self.dialog = tk.Toplevel(parent)
         self.dialog.title(title)
-        self.dialog.geometry("400x250")
+        self.dialog.geometry("400x280")
         self.dialog.resizable(False, False)
         self.dialog.transient(parent)
         self.dialog.grab_set()
@@ -456,19 +449,35 @@ class CrashReasonDialog:
         self.priority_spin = ttk.Spinbox(self.dialog, from_=0, to=100, width=5, textvariable=self.priority_var)
         self.priority_spin.grid(row=3, column=1, sticky="w", padx=10, pady=5)
 
-        ttk.Label(self.dialog, text="Promoter:").grid(row=4, column=0, sticky="w", padx=10, pady=5)
-        self.promoter_entry = ttk.Entry(self.dialog, width=40)
-        self.promoter_entry.grid(row=4, column=1, padx=10, pady=5)
+        # Promoters section
+        ttk.Label(self.dialog, text="Promoters:").grid(row=4, column=0, sticky="w", padx=10, pady=5)
+        self.promoters_frame = ttk.Frame(self.dialog)
+        self.promoters_frame.grid(row=4, column=1, sticky="w", padx=10, pady=5)
 
+        self.promoters_var = tk.StringVar()
+        self.promoters_label = ttk.Label(self.promoters_frame, textvariable=self.promoters_var, width=30)
+        self.promoters_label.pack(side=tk.LEFT)
+
+        ttk.Button(self.promoters_frame, text="Select", command=self.select_promoters).pack(side=tk.LEFT, padx=5)
 
         # Set initial values if provided
         if initial_values:
-            id_val, name, description, priority, promoter = initial_values
+            id_val, name, description, priority, promoters = initial_values
             self.id_entry.insert(0, id_val)
             self.name_entry.insert(0, name)
             self.description_text.insert("1.0", description)
             self.priority_var.set(priority)
-            self.promoter_entry.insert(0, promoter)
+            self.promoters_var.set(promoters)
+
+            # Extract promoter names
+            if promoters and promoters != "None":
+                promoter_names = [p.strip() for p in promoters.split(",")]
+                # Find promoter IDs if they exist
+                for name in promoter_names:
+                    for pid, person in database.persons.items():
+                        if person["name"] == name:
+                            self.selected_promoters.append((int(pid), name))
+                            break
 
         # Buttons
         button_frame = ttk.Frame(self.dialog)
@@ -480,20 +489,30 @@ class CrashReasonDialog:
         # Wait for the dialog to be closed
         self.dialog.wait_window()
 
+    def select_promoters(self):
+        """Open dialog to select promoters"""
+        selector = PersonSelectorDialog(self.parent,self.database, "Select Promoters", multi_select=True)
+        if selector.result:
+            self.selected_promoters = selector.result
+            promoter_names = [name for _, name in self.selected_promoters]
+            self.promoters_var.set(", ".join(promoter_names))
+
     def ok(self):
         """Handle OK button"""
         id_val = self.id_entry.get().strip()
         name = self.name_entry.get().strip()
         description = self.description_text.get("1.0", "end-1c").strip()
         priority = self.priority_var.get()
-        promoter = self.promoter_entry.get().strip()
+
+        # Get promoter names as comma-separated string
+        promoter_names = ", ".join([name for _, name in self.selected_promoters]) if self.selected_promoters else ""
 
         # Validate inputs
         if not id_val or not name or not description:
-            messagebox.showwarning("Warning", "Please fill in all fields")
+            messagebox.showwarning("Warning", "Please fill in all required fields")
             return
 
-        self.result = (id_val, name, description, priority, promoter)
+        self.result = (id_val, name, description, priority, promoter_names)
         self.dialog.destroy()
 
     def cancel(self):
@@ -504,13 +523,16 @@ class CrashReasonDialog:
 class DetectionRuleDialog:
     """Dialog for adding/editing detection rules"""
 
-    def __init__(self, parent, title, initial_values=None):
+    def __init__(self, parent, database: CrashReasonDatabase, title, initial_values=None):
         self.result = None
+        self.parent = parent
+        self.selected_contributors = []
+        self.database = database
 
         # Create dialog window
         self.dialog = tk.Toplevel(parent)
         self.dialog.title(title)
-        self.dialog.geometry("400x250")
+        self.dialog.geometry("400x280")
         self.dialog.resizable(False, False)
         self.dialog.transient(parent)
         self.dialog.grab_set()
@@ -527,17 +549,33 @@ class DetectionRuleDialog:
         self.match_text = tk.Text(self.dialog, width=30, height=8)
         self.match_text.grid(row=1, column=1, padx=10, pady=5)
 
-        ttk.Label(self.dialog, text="Contributor:").grid(row=2, column=0, sticky="w", padx=10, pady=5)
-        self.contributor_entry = ttk.Entry(self.dialog, width=40)
-        self.contributor_entry.grid(row=2, column=1, padx=10, pady=5)
+        # Contributors section
+        ttk.Label(self.dialog, text="Contributors:").grid(row=2, column=0, sticky="w", padx=10, pady=5)
+        self.contributors_frame = ttk.Frame(self.dialog)
+        self.contributors_frame.grid(row=2, column=1, sticky="w", padx=10, pady=5)
 
+        self.contributors_var = tk.StringVar()
+        self.contributors_label = ttk.Label(self.contributors_frame, textvariable=self.contributors_var, width=30)
+        self.contributors_label.pack(side=tk.LEFT)
+
+        ttk.Button(self.contributors_frame, text="Select", command=self.select_contributors).pack(side=tk.LEFT, padx=5)
 
         # Set initial values if provided
         if initial_values:
-            match_type, match, contributor = initial_values
+            match_type, match, contributors = initial_values
             self.match_type_var.set(match_type)
             self.match_text.insert("1.0", match)
-            self.contributor_entry.insert(0, contributor)
+            self.contributors_var.set(contributors)
+
+            # Extract contributor names
+            if contributors and contributors != "None":
+                contributor_names = [c.strip() for c in contributors.split(",")]
+                # Find contributor IDs if they exist
+                for name in contributor_names:
+                    for pid, person in database.persons.items():
+                        if person["name"] == name:
+                            self.selected_contributors.append((int(pid), name))
+                            break
 
         # Buttons
         button_frame = ttk.Frame(self.dialog)
@@ -549,20 +587,154 @@ class DetectionRuleDialog:
         # Wait for the dialog to be closed
         self.dialog.wait_window()
 
+    def select_contributors(self):
+        """Open dialog to select contributors"""
+        selector = PersonSelectorDialog(self.parent,self.database, "Select Contributors", multi_select=True)
+        if selector.result:
+            self.selected_contributors = selector.result
+            contributor_names = [name for _, name in self.selected_contributors]
+            self.contributors_var.set(", ".join(contributor_names))
+
     def ok(self):
         """Handle OK button"""
         match_type = self.match_type_var.get()
-        match_text = self.match_text.get("1.0", "end-1c").strip()
-        match = match_text
-        contributor = self.contributor_entry.get().strip()
+        match = self.match_text.get("1.0", "end-1c").strip()
+
+        # Get contributor names as comma-separated string
+        contributor_names = ", ".join(
+            [name for _, name in self.selected_contributors]) if self.selected_contributors else ""
 
         # Validate inputs
         if not match:
-            messagebox.showwarning("Warning", "Please add at least one match pattern")
+            messagebox.showwarning("Warning", "Please add a match pattern")
             return
 
-        self.result = (match_type, match, contributor)
+        self.result = (match_type, match, contributor_names)
         self.dialog.destroy()
+
+    def cancel(self):
+        """Handle Cancel button"""
+        self.dialog.destroy()
+
+
+class PersonSelectorDialog:
+    """Dialog for selecting or creating persons"""
+
+    def __init__(self, parent, database:CrashReasonDatabase=None, title="Select Person", multi_select=False):
+        self.result = None
+        self.parent = parent
+        self.multi_select = multi_select
+        self.selected_persons = []
+        self.database = database
+
+        # Create dialog window
+        self.dialog = tk.Toplevel(parent)
+        self.dialog.title(title)
+        self.dialog.geometry("400x400")
+        self.dialog.transient(parent)
+        self.dialog.grab_set()
+
+        # Search frame
+        search_frame = ttk.Frame(self.dialog)
+        search_frame.pack(fill=tk.X, padx=10, pady=5)
+
+        ttk.Label(search_frame, text="Search:").pack(side=tk.LEFT)
+        self.search_var = tk.StringVar()
+        self.search_entry = ttk.Entry(search_frame, textvariable=self.search_var, width=30)
+        self.search_entry.pack(side=tk.LEFT, padx=5)
+        ttk.Button(search_frame, text="Search", command=self.search).pack(side=tk.LEFT)
+
+        # Persons listbox with scrollbar
+        self.listbox_frame = ttk.Frame(self.dialog)
+        self.listbox_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+
+        self.persons_listbox = tk.Listbox(self.listbox_frame, selectmode=tk.MULTIPLE if multi_select else tk.SINGLE)
+        self.persons_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        scrollbar = ttk.Scrollbar(self.listbox_frame, orient=tk.VERTICAL, command=self.persons_listbox.yview)
+        self.persons_listbox.configure(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # Populate the listbox
+        self.load_persons()
+
+        # Buttons
+        button_frame = ttk.Frame(self.dialog)
+        button_frame.pack(fill=tk.X, padx=10, pady=10)
+
+        ttk.Button(button_frame, text="Select", command=self.select).pack(side=tk.LEFT)
+        ttk.Button(button_frame, text="Create New", command=self.create_new).pack(side=tk.LEFT, padx=5)
+        ttk.Button(button_frame, text="Cancel", command=self.cancel).pack(side=tk.RIGHT)
+
+        # Wait for the dialog to be closed
+        self.dialog.wait_window()
+
+    def load_persons(self):
+        """Load all persons into the listbox"""
+        self.persons_listbox.delete(0, tk.END)
+        self.persons_data = []
+
+        if not self.database:
+            return
+
+        for person_id, person_data in self.database.persons.items():
+            person_str = f"{person_data['id']}: {person_data['name']}"
+            self.persons_listbox.insert(tk.END, person_str)
+            self.persons_data.append(person_data)
+
+    def search(self):
+        """Search for persons based on the search term"""
+        search_term = self.search_var.get().strip().lower()
+        self.persons_listbox.delete(0, tk.END)
+        self.persons_data = []
+
+        if not self.database:
+            return
+
+        for person_id, person_data in self.database.persons.items():
+            if (search_term in str(person_data['id']).lower() or
+                    search_term in person_data['name'].lower()):
+                person_str = f"{person_data['id']}: {person_data['name']}"
+                self.persons_listbox.insert(tk.END, person_str)
+                self.persons_data.append(person_data)
+
+    def select(self):
+        """Handle the selection of persons"""
+        selection = self.persons_listbox.curselection()
+        if not selection:
+            messagebox.showinfo("Information", "Please select at least one person")
+            return
+
+        if self.multi_select:
+            self.selected_persons = [self.persons_data[i] for i in selection]
+            self.result = [(person['id'], person['name']) for person in self.selected_persons]
+        else:
+            selected_index = selection[0]
+            selected_person = self.persons_data[selected_index]
+            self.result = (selected_person['id'], selected_person['name'])
+
+        self.dialog.destroy()
+
+    def create_new(self):
+        """Create a new person"""
+        name = simpledialog.askstring("Create New Person", "Enter name for new person:")
+        if name and name.strip():
+            if not self.database:
+                messagebox.showerror("Error", "Database not available")
+                return
+
+            # Create a new ID
+            new_id = max([int(pid) for pid in self.database.persons.keys()], default=0) + 1
+            new_person = Person(id=new_id, name=name.strip())
+
+            if self.database.add_person(new_person):
+                if self.multi_select:
+                    self.result = [(new_id, name.strip())]
+                else:
+                    self.result = (new_id, name.strip())
+                self.dialog.destroy()
+            else:
+                messagebox.showerror("Error", "Failed to create new person")
 
     def cancel(self):
         """Handle Cancel button"""

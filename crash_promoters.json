@@ -1,1 +1,118 @@
-{}
+{
+  "BIT32_JAVA_2": {
+    "crash_reason_id": "BIT32_JAVA",
+    "person_id": 2
+  },
+  "BLOCK_ERROR_1": {
+    "crash_reason_id": "BLOCK_ERROR",
+    "person_id": 1
+  },
+  "BLOCK_ERROR_2": {
+    "crash_reason_id": "BLOCK_ERROR",
+    "person_id": 2
+  },
+  "Caught Exception from Forge_2": {
+    "crash_reason_id": "Caught Exception from Forge",
+    "person_id": 2
+  },
+  "DRIVER_ISSUE_2": {
+    "crash_reason_id": "DRIVER_ISSUE",
+    "person_id": 2
+  },
+  "ENTITY_ERROR_1": {
+    "crash_reason_id": "ENTITY_ERROR",
+    "person_id": 1
+  },
+  "ENTITY_ERROR_2": {
+    "crash_reason_id": "ENTITY_ERROR",
+    "person_id": 2
+  },
+  "FORGE_INCOMPLETE_2": {
+    "crash_reason_id": "FORGE_INCOMPLETE",
+    "person_id": 2
+  },
+  "FORGE_JAVA_INCOMPATIBLE_2": {
+    "crash_reason_id": "FORGE_JAVA_INCOMPATIBLE",
+    "person_id": 2
+  },
+  "JAVA_TOO_HIGH_2": {
+    "crash_reason_id": "JAVA_TOO_HIGH",
+    "person_id": 2
+  },
+  "JAVA_VERSION_ERROR_2": {
+    "crash_reason_id": "JAVA_VERSION_ERROR",
+    "person_id": 2
+  },
+  "MANUAL_DEBUG_CRASH_2": {
+    "crash_reason_id": "MANUAL_DEBUG_CRASH",
+    "person_id": 2
+  },
+  "MIXIN_BOOTSTRAP_MISSING_2": {
+    "crash_reason_id": "MIXIN_BOOTSTRAP_MISSING",
+    "person_id": 2
+  },
+  "MOD_CONFIG_ERROR_2": {
+    "crash_reason_id": "MOD_CONFIG_ERROR",
+    "person_id": 2
+  },
+  "MOD_DUPLICATE_2": {
+    "crash_reason_id": "MOD_DUPLICATE",
+    "person_id": 2
+  },
+  "MOD_EXTRACTED_2": {
+    "crash_reason_id": "MOD_EXTRACTED",
+    "person_id": 2
+  },
+  "MOD_INIT_FAILED_2": {
+    "crash_reason_id": "MOD_INIT_FAILED",
+    "person_id": 2
+  },
+  "MOD_REQUIRES_JAVA11_2": {
+    "crash_reason_id": "MOD_REQUIRES_JAVA11",
+    "person_id": 2
+  },
+  "MOD_SPECIAL_CHARS_2": {
+    "crash_reason_id": "MOD_SPECIAL_CHARS",
+    "person_id": 2
+  },
+  "MOD_TOO_MANY_2": {
+    "crash_reason_id": "MOD_TOO_MANY",
+    "person_id": 2
+  },
+  "MULTIPLE_FORGE_2": {
+    "crash_reason_id": "MULTIPLE_FORGE",
+    "person_id": 2
+  },
+  "OPENGL_ERROR_2": {
+    "crash_reason_id": "OPENGL_ERROR",
+    "person_id": 2
+  },
+  "OPTIFINE_FORGE_INCOMPATIBLE_2": {
+    "crash_reason_id": "OPTIFINE_FORGE_INCOMPATIBLE",
+    "person_id": 2
+  },
+  "OPTIFINE_WORLD_LOAD_ERROR_2": {
+    "crash_reason_id": "OPTIFINE_WORLD_LOAD_ERROR",
+    "person_id": 2
+  },
+  "OUT_OF_MEMORY_2": {
+    "crash_reason_id": "OUT_OF_MEMORY",
+    "person_id": 2
+  },
+  "SHADER_ERROR_2": {
+    "crash_reason_id": "SHADER_ERROR",
+    "person_id": 2
+  },
+  "TEXTURE_TOO_LARGE_2": {
+    "crash_reason_id": "TEXTURE_TOO_LARGE",
+    "person_id": 2
+  },
+  "USING_OPEN_J9_2": {
+    "crash_reason_id": "USING_OPEN_J9",
+    "person_id": 2
+  },
+  "WATCHDOG_TIMEOUT_1": {
+    "crash_reason_id": "WATCHDOG_TIMEOUT",
+    "person_id": 1
+  }
+}
