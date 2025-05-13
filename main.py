@@ -328,39 +328,31 @@ class MinecraftCrashAnalyzer:
         Sets up the keyword processor with these keywords.
 
         Returns:
-            bool: True if keywords were successfully added to the processor
+            Dictionary mapping keywords to crash reason IDs
         """
         try:
-            # Clear existing processor keywords
-            self.keyword_processor.remove_keywords_from_list(list(self.keyword_processor.get_all_keywords()))
+            # Clear existing keywords
+            self.keyword_processor.remove_keywords_from_dict(self.keyword_processor.get_all_keywords())
 
-            # Build keyword dictionary
-            self.keywords_dict = {}
-            crash_items = self.crashdb.get_all_crash_reasons()
+            keyword_dict = {}
 
-            for crash_item in crash_items:
-                detection_rules = self.crashdb.get_detection_rule(crash_item.id)
+            # Process all crash reasons
+            for reason_id in self.crashdb.crash_reasons:
+                # Get detection rules for this crash reason
+                rules = self.crashdb.get_detection_rules_for_crash(reason_id)
 
-                if not detection_rules:
-                    continue
+                # Add exact match patterns to keyword processor
+                for rule in rules:
+                    if rule.match_type == 0:  # Exact match
+                        self.keyword_processor.add_keyword(rule.match, reason_id)
+                        keyword_dict[rule.match] = reason_id
 
-                # Filter rules that use keyword matching (match_type == 0)
-                keyword_match = [rule.match for rule in detection_rules.detectionRule
-                                   if rule.match_type == 0 and rule.match]
 
-                if keyword_match:
-                    self.keywords_dict[crash_item.id] = keyword_match
-
-            # Add keywords to processor if dictionary isn't empty
-            if self.keywords_dict:
-                self.keyword_processor.add_keywords_from_dict(self.keywords_dict)
-                return True
-
-            return False
+            return keyword_dict
 
         except Exception as e:
-            self.log(f"[ERROR] Building keyword dictionary failed: {str(e)}")
-            return False
+            print(f"Error building keyword dictionary: {e}")
+            return {}
 
     def analyze_with_keyword(self):
         """
@@ -941,14 +933,14 @@ def start_analyzer(logs_folder):
 
     contributors = []
     for reason, details in analyzer.crash_reasons.items():
-        if type(reason) is str:
-            # Old: contributors.append(analyzer.crashdb.get_crash_reason(reason).promoter)
-            # New:
+        if isinstance(reason, str):
+            # Use the new method to get promoters
             promoters = analyzer.crashdb.get_promoters_for_crash(reason)
             if promoters:
                 contributors.extend([p.name for p in promoters])
-        else:
+        elif isinstance(reason, Special_CrashReason):
             contributors.append(reason.value[1])
+
     contributors_str = ", ".join(list(set(contributors)))
 
     analyzer_result_message = "--- Analysis Result ---" + "\n" + result + "\n" + "--- Detected Crash Reasons ---" + "\n" + \
@@ -997,11 +989,16 @@ if __name__ == "__main__":
         print("\n--- Analysis Contributor ---")
         contributors = []
         for reason, details in analyzer.crash_reasons.items():
-            if type(reason) is str:
-                contributors.append(analyzer.crashdb.get_crash_reason(reason).promoter)
-            else:
+            if isinstance(reason, str):
+                # Use the new method to get promoters
+                promoters = analyzer.crashdb.get_promoters_for_crash(reason)
+                if promoters:
+                    contributors.extend([p.name for p in promoters])
+            elif isinstance(reason, Special_CrashReason):
                 contributors.append(reason.value[1])
+
         contributors = list(set(contributors))
         print(f"This analysis item(s) was contributed by: {', '.join(contributors)}")
+
     else:
         print("No valid logs found in the specified folder.")

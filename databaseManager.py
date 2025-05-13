@@ -142,7 +142,7 @@ class CrashDatabaseManager:
                 id=reason_data["id"],
                 name=reason_data["name"],
                 description=reason_data["description"],
-                priority=reason_data["priority"] or 0
+                priority=reason_data["priority"]
             )
             crash_reasons.append(crash_reason)
 
@@ -213,7 +213,7 @@ class CrashDatabaseManager:
 
             # Create and add updated crash reason
             new_reason = CrashReason(id=new_id, name=new_name, description=new_description, priority=new_priority)
-            self.database.add_crash_reason(new_reason)
+            self.database.update_crash_reason(new_reason)
 
             # Clear old promoters
             for key in list(self.database.crash_promoters.keys()):

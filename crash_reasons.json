@@ -1,183 +1,183 @@
 {
-    "OUT_OF_MEMORY": {
-        "id": "OUT_OF_MEMORY",
-        "name": "内存不足",
-        "description": "游戏内存不足，导致游戏崩溃。\\n\\n请尝试增加内存分配或减少游戏设置以提高性能。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "JAVA_VERSION_ERROR": {
-        "id": "JAVA_VERSION_ERROR",
-        "name": "Java版本错误",
-        "description": "Java版本不兼容，导致游戏崩溃。\n\n请使用兼容的Java版本来运行游戏。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "JAVA_TOO_HIGH": {
-        "id": "JAVA_TOO_HIGH",
-        "name": "Java版本过高",
-        "description": "你所使用的Java版本过高，导致游戏无法正常运行。\\n\\n请尝试使用推荐的Java版本：\\n{details}",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "DRIVER_ISSUE": {
-        "id": "DRIVER_ISSUE",
-        "name": "显卡驱动问题",
-        "description": "你的显卡驱动存在问题，导致游戏无法正常运行。\\n\\n请更新你的显卡驱动到最新版本，或尝试回滚到旧版本。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "OPENGL_ERROR": {
-        "id": "OPENGL_ERROR",
-        "name": "显卡不支持OpenGL",
-        "description": "你的显卡不支持OpenGL，或OpenGL驱动存在问题，导致游戏无法正常运行。\\n\\n请更新你的显卡驱动到最新版本。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "SHADER_ERROR": {
-        "id": "SHADER_ERROR",
-        "name": "光影或资源包导致OpenGL错误",
-        "description": "你所使用的光影或资源包导致游戏出现了一些问题……\\n\\n请尝试删除你所添加的这些额外资源。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "TEXTURE_TOO_LARGE": {
-        "id": "TEXTURE_TOO_LARGE",
-        "name": "材质过大或显卡配置不足",
-        "description": "你所使用的材质分辨率过高，或显卡配置不足，导致游戏无法继续运行。\\n\\n如果你正在使用高清材质，请将它移除。\\n如果你没有使用材质，那么你可能需要更新显卡驱动，或者换个更好的显卡",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "OPTIFINE_FORGE_INCOMPATIBLE": {
-        "id": "OPTIFINE_FORGE_INCOMPATIBLE",
-        "name": "OptiFine与Forge不兼容",
-        "description": "OptiFine与Forge不兼容，导致游戏崩溃。\\n\\n请使用兼容的OptiFine版本，或暂时移除OptiFine。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "OPTIFINE_WORLD_LOAD_ERROR": {
-        "id": "OPTIFINE_WORLD_LOAD_ERROR",
-        "name": "OptiFine导致无法加载世界",
-        "description": "OptiFine导致无法加载世界。\\n\\n请尝试更新或暂时移除OptiFine。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "MULTIPLE_FORGE": {
-        "id": "MULTIPLE_FORGE",
-        "name": "版本Json中存在多个Forge",
-        "description": "版本Json中存在多个Forge，导致游戏崩溃。\\n\\n请重新安装Minecraft和Forge。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "FORGE_INCOMPLETE": {
-        "id": "FORGE_INCOMPLETE",
-        "name": "Forge安装不完整",
-        "description": "由于安装的Forge文件丢失，导致游戏无法正常运行。\\n请重新安装一次相同版本的Forge，然后再启动游戏。\\n在打包游戏时删除libraries文件夹可能导致此错误。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "FORGE_JAVA_INCOMPATIBLE": {
-        "id": "FORGE_JAVA_INCOMPATIBLE",
-        "name": "低版本Forge与高版本Java不兼容",
-        "description": "低版本Forge与高版本Java不兼容，导致游戏崩溃。\\n\\n请使用Java 8来运行此版本的Forge。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "MANUAL_DEBUG_CRASH": {
-        "id": "MANUAL_DEBUG_CRASH",
-        "name": "玩家手动触发调试崩溃",
-        "description": "这是一个手动触发的调试崩溃，不是真正的游戏错误。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "MIXIN_BOOTSTRAP_MISSING": {
-        "id": "MIXIN_BOOTSTRAP_MISSING",
-        "name": "MixinBootstrap缺失",
-        "description": "MixinBootstrap缺失，导致游戏崩溃。\\n\\n这通常是由于Mod配置错误导致的，请重新安装Forge或Fabric。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "MOD_EXTRACTED": {
-        "id": "MOD_EXTRACTED",
-        "name": "Mod文件被解压",
-        "description": "部分Mod被解压到mods文件夹中，这会导致游戏无法正常加载。\\n\\n请确保所有Mod都以.jar文件的形式存在于mods文件夹中，而不是作为文件夹存在。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "MOD_CONFIG_ERROR": {
-        "id": "MOD_CONFIG_ERROR",
-        "name": "Mod配置文件错误",
-        "description": "由于Night Config存在问题，导致了游戏崩溃。\\n你可以尝试安装Night Config Fixes模组，这或许能解决此问题。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "MOD_SPECIAL_CHARS": {
-        "id": "MOD_SPECIAL_CHARS",
-        "name": "Mod名称包含特殊字符",
-        "description": "部分Mod文件名包含特殊字符，导致游戏崩溃。\\n\\n请检查你的mods文件夹，确保所有文件名只包含英文字母、数字和下划线。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "MOD_REQUIRES_JAVA11": {
-        "id": "MOD_REQUIRES_JAVA11",
-        "name": "Mod需要Java11或更高版本",
-        "description": "部分Mod需要Java 11或更高版本，但你使用的Java版本过低。\\n\\n请安装Java 11或更高版本。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "MOD_TOO_MANY": {
-        "id": "MOD_TOO_MANY",
-        "name": "Mod过多导致超出ID限制",
-        "description": "你所安装的Mod过多，超出了游戏的ID限制，导致了游戏崩溃。\\n请尝试安装JEID等修复Mod，或删除部分大型Mod。",
-        "priority": 0,
-        "promoter_id": 3
-    },
-    "USING_OPEN_J9": {
-        "id": "USING_OPEN_J9",
-        "name": "使用了不兼容的OpenJ9",
-        "description": "你使用了不兼容的OpenJ9 Java环境，导致游戏崩溃。\\n\\n请改用Oracle Java或AdoptOpenJDK的Hotspot版本。",
-        "priority": 0
-    },
-    "WATCHDOG_TIMEOUT": {
-        "id": "WATCHDOG_TIMEOUT",
-        "name": "看门狗生效自动关闭游戏",
-        "description": "这个崩溃是因为服务器滞后/卡顿造成的。\\n具体解决方案请查阅：https://www.bilibili.com/opus/752455202183839751",
-        "priority": 0
-    },
-    "BIT32_JAVA": {
-        "id": "BIT32_JAVA",
-        "name": "使用32位Java无法分配足够内存",
-        "description": "你正在使用32位Java，这无法分配足够的内存来运行游戏。\\n\\n请安装64位版本的Java。",
-        "priority": 0
-    },
-    "Caught Exception from Forge": {
-        "id": "Caught Exception from Forge",
-        "name": "Forge捕获的模组出错",
-        "description": "以下Mod导致了游戏崩溃:\\n[[1]]\\n\\n请更新或移除这些Mod。",
-        "priority": 0
-    },
-    "BLOCK_ERROR": {
-        "id": "BLOCK_ERROR",
-        "name": "特定方块导致崩溃",
-        "description": "特定方块导致崩溃:\\n[[1]] [[2]]\\n\\n请尝试进入游戏世界的其他区域，或者使用MCEdit等工具删除这个位置的方块。\\n更多请查阅https://www.bilibili.com/opus/807799450495877206",
-        "priority": 0
-    },
-    "ENTITY_ERROR": {
-        "id": "ENTITY_ERROR",
-        "name": "特定实体导致崩溃",
-        "description": "特定实体导致崩溃:\\n[[1]] [[2]]\\n\\n请尝试进入游戏世界的其他区域，或者使用MCEdit等工具删除这个实体。\\n更多请查阅https://www.bilibili.com/opus/807799450495877206",
-        "priority": 0
-    },
-    "MOD_INIT_FAILED": {
-        "id": "MOD_INIT_FAILED",
-        "name": "初始化出错",
-        "description": "某些Mod初始化失败...\\n[[1]]\\n导致游戏崩溃。\\n\\n请检查并更新你的Mod。",
-        "priority": 0
-    },
-    "MOD_DUPLICATE": {
-        "id": "MOD_DUPLICATE",
-        "name": "模组重复",
-        "description": "以下Mod被重复安装:\\n[[1]]与[[2]]\\n\\n请删除重复的Mod文件，每个Mod只保留一个版本。",
-        "priority": 0
-    }
+  "BIT32_JAVA": {
+    "description": "你正在使用32位Java，这无法分配足够的内存来运行游戏。\\n\\n请安装64位版本的Java。",
+    "id": "BIT32_JAVA",
+    "name": "使用32位Java无法分配足够内存",
+    "priority": 0
+  },
+  "BLOCK_ERROR": {
+    "description": "特定方块导致崩溃:\\n[[1]] [[2]]\\n\\n请尝试进入游戏世界的其他区域，或者使用MCEdit等工具删除这个位置的方块。\\n更多请查阅https://www.bilibili.com/opus/807799450495877206",
+    "id": "BLOCK_ERROR",
+    "name": "特定方块导致崩溃",
+    "priority": 0
+  },
+  "Caught Exception from Forge": {
+    "description": "以下Mod导致了游戏崩溃:\\n[[1]]\\n\\n请更新或移除这些Mod。",
+    "id": "Caught Exception from Forge",
+    "name": "Forge捕获的模组出错",
+    "priority": 0
+  },
+  "DRIVER_ISSUE": {
+    "description": "你的显卡驱动存在问题，导致游戏无法正常运行。\\n\\n请更新你的显卡驱动到最新版本，或尝试回滚到旧版本。",
+    "id": "DRIVER_ISSUE",
+    "name": "显卡驱动问题",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "ENTITY_ERROR": {
+    "description": "特定实体导致崩溃:\\n[[1]] [[2]]\\n\\n请尝试进入游戏世界的其他区域，或者使用MCEdit等工具删除这个实体。\\n更多请查阅https://www.bilibili.com/opus/807799450495877206",
+    "id": "ENTITY_ERROR",
+    "name": "特定实体导致崩溃",
+    "priority": 0
+  },
+  "FORGE_INCOMPLETE": {
+    "description": "由于安装的Forge文件丢失，导致游戏无法正常运行。\\n请重新安装一次相同版本的Forge，然后再启动游戏。\\n在打包游戏时删除libraries文件夹可能导致此错误。",
+    "id": "FORGE_INCOMPLETE",
+    "name": "Forge安装不完整",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "FORGE_JAVA_INCOMPATIBLE": {
+    "description": "低版本Forge与高版本Java不兼容，导致游戏崩溃。\\n\\n请使用Java 8来运行此版本的Forge。",
+    "id": "FORGE_JAVA_INCOMPATIBLE",
+    "name": "低版本Forge与高版本Java不兼容",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "JAVA_TOO_HIGH": {
+    "description": "你所使用的Java版本过高，导致游戏无法正常运行。\\n\\n请尝试使用推荐的Java版本：\\n{details}",
+    "id": "JAVA_TOO_HIGH",
+    "name": "Java版本过高",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "JAVA_VERSION_ERROR": {
+    "description": "Java版本不兼容，导致游戏崩溃。\n\n请使用兼容的Java版本来运行游戏。",
+    "id": "JAVA_VERSION_ERROR",
+    "name": "Java版本错误",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "MANUAL_DEBUG_CRASH": {
+    "description": "这是一个手动触发的调试崩溃，不是真正的游戏错误。",
+    "id": "MANUAL_DEBUG_CRASH",
+    "name": "玩家手动触发调试崩溃",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "MIXIN_BOOTSTRAP_MISSING": {
+    "description": "MixinBootstrap缺失，导致游戏崩溃。\\n\\n这通常是由于Mod配置错误导致的，请重新安装Forge或Fabric。",
+    "id": "MIXIN_BOOTSTRAP_MISSING",
+    "name": "MixinBootstrap缺失",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "MOD_CONFIG_ERROR": {
+    "description": "由于Night Config存在问题，导致了游戏崩溃。\\n你可以尝试安装Night Config Fixes模组，这或许能解决此问题。",
+    "id": "MOD_CONFIG_ERROR",
+    "name": "Mod配置文件错误",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "MOD_DUPLICATE": {
+    "description": "以下Mod被重复安装:\\n[[1]]与[[2]]\\n\\n请删除重复的Mod文件，每个Mod只保留一个版本。",
+    "id": "MOD_DUPLICATE",
+    "name": "模组重复",
+    "priority": 0
+  },
+  "MOD_EXTRACTED": {
+    "description": "部分Mod被解压到mods文件夹中，这会导致游戏无法正常加载。\\n\\n请确保所有Mod都以.jar文件的形式存在于mods文件夹中，而不是作为文件夹存在。",
+    "id": "MOD_EXTRACTED",
+    "name": "Mod文件被解压",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "MOD_INIT_FAILED": {
+    "description": "某些Mod初始化失败...\\n[[1]]\\n导致游戏崩溃。\\n\\n请检查并更新你的Mod。",
+    "id": "MOD_INIT_FAILED",
+    "name": "初始化出错",
+    "priority": 0
+  },
+  "MOD_REQUIRES_JAVA11": {
+    "description": "部分Mod需要Java 11或更高版本，但你使用的Java版本过低。\\n\\n请安装Java 11或更高版本。",
+    "id": "MOD_REQUIRES_JAVA11",
+    "name": "Mod需要Java11或更高版本",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "MOD_SPECIAL_CHARS": {
+    "description": "部分Mod文件名包含特殊字符，导致游戏崩溃。\\n\\n请检查你的mods文件夹，确保所有文件名只包含英文字母、数字和下划线。",
+    "id": "MOD_SPECIAL_CHARS",
+    "name": "Mod名称包含特殊字符",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "MOD_TOO_MANY": {
+    "description": "你所安装的Mod过多，超出了游戏的ID限制，导致了游戏崩溃。\\n请尝试安装JEID等修复Mod，或删除部分大型Mod。",
+    "id": "MOD_TOO_MANY",
+    "name": "Mod过多导致超出ID限制",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "MULTIPLE_FORGE": {
+    "description": "版本Json中存在多个Forge，导致游戏崩溃。\\n\\n请重新安装Minecraft和Forge。",
+    "id": "MULTIPLE_FORGE",
+    "name": "版本Json中存在多个Forge",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "OPENGL_ERROR": {
+    "description": "你的显卡不支持OpenGL，或OpenGL驱动存在问题，导致游戏无法正常运行。\\n\\n请更新你的显卡驱动到最新版本。",
+    "id": "OPENGL_ERROR",
+    "name": "显卡不支持OpenGL",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "OPTIFINE_FORGE_INCOMPATIBLE": {
+    "description": "OptiFine与Forge不兼容，导致游戏崩溃。\\n\\n请使用兼容的OptiFine版本，或暂时移除OptiFine。",
+    "id": "OPTIFINE_FORGE_INCOMPATIBLE",
+    "name": "OptiFine与Forge不兼容",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "OPTIFINE_WORLD_LOAD_ERROR": {
+    "description": "OptiFine导致无法加载世界。\\n\\n请尝试更新或暂时移除OptiFine。",
+    "id": "OPTIFINE_WORLD_LOAD_ERROR",
+    "name": "OptiFine导致无法加载世界",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "OUT_OF_MEMORY": {
+    "description": "游戏内存不足，导致游戏崩溃。\\n\\n请尝试增加内存分配或减少游戏设置以提高性能。",
+    "id": "OUT_OF_MEMORY",
+    "name": "内存不足",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "SHADER_ERROR": {
+    "description": "你所使用的光影或资源包导致游戏出现了一些问题……\\n\\n请尝试删除你所添加的这些额外资源。",
+    "id": "SHADER_ERROR",
+    "name": "光影或资源包导致OpenGL错误",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "TEXTURE_TOO_LARGE": {
+    "description": "你所使用的材质分辨率过高，或显卡配置不足，导致游戏无法继续运行。\\n\\n如果你正在使用高清材质，请将它移除。\\n如果你没有使用材质，那么你可能需要更新显卡驱动，或者换个更好的显卡",
+    "id": "TEXTURE_TOO_LARGE",
+    "name": "材质过大或显卡配置不足",
+    "priority": 0,
+    "promoter_id": 3
+  },
+  "USING_OPEN_J9": {
+    "description": "你使用了不兼容的OpenJ9 Java环境，导致游戏崩溃。\\n\\n请改用Oracle Java或AdoptOpenJDK的Hotspot版本。",
+    "id": "USING_OPEN_J9",
+    "name": "使用了不兼容的OpenJ9",
+    "priority": 0
+  },
+  "WATCHDOG_TIMEOUT": {
+    "description": "这个崩溃是因为服务器滞后/卡顿造成的。\\n具体解决方案请查阅：https://www.bilibili.com/opus/752455202183839751",
+    "id": "WATCHDOG_TIMEOUT",
+    "name": "看门狗生效自动关闭游戏",
+    "priority": 0
+  }
 }

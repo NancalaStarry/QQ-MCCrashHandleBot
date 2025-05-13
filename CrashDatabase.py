@@ -248,6 +248,13 @@ class CrashReasonDatabase:
         self.crash_reasons[crash_reason.id] = crash_reason.dict()
         return self.save_crash_reasons()
 
+    def update_crash_reason(self, crash_reason: CrashReason) -> bool:
+        if crash_reason.id not in self.crash_reasons:
+            print(f"Crash reason with ID {crash_reason.id} does not exist.")
+            return False
+        self.crash_reasons[crash_reason.id] = crash_reason.dict()
+        return self.save_crash_reasons()
+
     def get_crash_reason(self, crash_reason_id: str) -> Optional[CrashReason]:
         if crash_reason_id not in self.crash_reasons:
             print(f"Crash reason with ID {crash_reason_id} not found.")
