@@ -72,7 +72,7 @@ class MinecraftCrashAnalyzer:
         self.log_crash = None
         self.log_all = None
         self.crash_reasons = {}
-        self.crashdb = CrashReasonDatabase(folder_path)
+        self.crashdb = CrashReasonDatabase()
         self.keyword_processor = KeywordProcessor()
 
     def collect_logs(self, folder_path: str) -> bool:
@@ -400,7 +400,7 @@ class MinecraftCrashAnalyzer:
         for item in crash_items:
             reason = item["reason"]
             rule = item["rule"]
-            results = self.analyze_with_regex(rule.match, reason.name)
+            results = self.analyze_with_regex(rule.match, reason.description)
             if results:
                 for result in results:
                     self.append_regex_reason(reason.id, result)
@@ -418,12 +418,10 @@ class MinecraftCrashAnalyzer:
             List of formatted strings where placeholders are replaced with extracted values
         """
         results = []
-        print(pattern)
         for match in re.finditer(pattern, self.log_all, re.DOTALL):
             all_matched = True
             values = []
             for i in range(1, len(match.groups()) + 1):
-                print(f"Group {i}: {match.group(i)}")
                 value = match.group(i)
                 if value is None:
                     all_matched = False
@@ -437,7 +435,6 @@ class MinecraftCrashAnalyzer:
                 for i, value in enumerate(values):
                     result = result.replace(f"[[{i + 1}]]", value)
                 results.append(result)
-
         return results
 
     def analyze_crit1(self):
@@ -754,14 +751,11 @@ class MinecraftCrashAnalyzer:
                 crash_data = self.crashdb.get_crash_with_rules(reason)
                 if crash_data:
                     crash_reason = crash_data["crash_reason"]
-                    promoters = crash_data["promoters"]
-                    promoter_names = ", ".join([p.name for p in promoters]) if promoters else "Unknown"
 
                     formatted_reason = f"崩溃原因：{crash_reason.name}"
                     if details:
-                        formatted_reason += f" - {details}"
+                        formatted_reason += " -" + details[0].replace("\\n", "\n")
 
-                    formatted_reason += f"\n推荐人：{promoter_names}"
                     results.append(formatted_reason)
 
             if reason == Special_CrashReason.MOD_MISSING:
@@ -944,7 +938,7 @@ def start_analyzer(logs_folder):
     contributors_str = ", ".join(list(set(contributors)))
 
     analyzer_result_message = "--- Analysis Result ---" + "\n" + result + "\n" + "--- Detected Crash Reasons ---" + "\n" + \
-        "\n".join([f"- {reason}: {details if details else 'No additional details'}" for reason, details in analyzer.crash_reasons.items()]) + \
+        "\n".join([f"- {reason}: {analyzer.crash_reasons[reason].name}" for reason, details in analyzer.crash_reasons.items()]) + \
         "\n\n" + "--- Analysis Contributor ---" + "\n" + \
         f"This analysis item(s) was contributed by: {contributors_str}"
 
@@ -982,9 +976,9 @@ if __name__ == "__main__":
         print("\n--- Detected Crash Reasons ---")
         for reason, details in analyzer.crash_reasons.items():
             if type(reason) is str:
-                print(f"- {reason}: {details if details else 'No additional details'}")
+                print(f"- {reason}: {analyzer.crashdb.get_crash_reason(reason).name}")
             else:
-                print(f"- {reason.value[0]}: {details if details else 'No additional details'}")
+                print(f"- {reason.value[0]}: {analyzer.crash_reasons[reason].name}")
 
         print("\n--- Analysis Contributor ---")
         contributors = []
