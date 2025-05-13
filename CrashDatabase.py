@@ -94,7 +94,7 @@ class CrashReasonDatabase:
             self.crash_promoters = JsonHandle.read_json(self.crash_promoters_file_path)
             return True
         except Exception as e:
-            print(f"加载崩溃原因推荐人数据时出错: {e}")
+            print(f"加载崩溃原因发现者数据时出错: {e}")
             self.crash_promoters = {}
             return False
 
@@ -114,7 +114,7 @@ class CrashReasonDatabase:
             JsonHandle.write_json(self.crash_promoters_file_path, self.crash_promoters)
             return True
         except Exception as e:
-            print(f"保存崩溃原因推荐人数据时出错: {e}")
+            print(f"保存崩溃原因发现者数据时出错: {e}")
             return False
 
     # 保存规则与人员的关联数据
@@ -126,7 +126,7 @@ class CrashReasonDatabase:
             print(f"保存规则贡献者数据时出错: {e}")
             return False
 
-    # 添加崩溃原因与推荐人的关联
+    # 添加崩溃原因与发现者的关联
     def add_crash_promoter(self, crash_id: str, person_id: int) -> bool:
         key = f"{crash_id}_{person_id}"
         if key in self.crash_promoters:
@@ -137,7 +137,7 @@ class CrashReasonDatabase:
         }
         return self.save_crash_promoters()
 
-    # 获取某个崩溃原因的所有推荐人
+    # 获取某个崩溃原因的所有发现者
     def get_promoters_for_crash(self, crash_id: str) -> List[Person]:
         promoters = []
         for key, relation in self.crash_promoters.items():
@@ -300,7 +300,7 @@ class CrashReasonDatabase:
                 ))
         return rules
 
-    # 获取崩溃原因及其相关规则和推荐人
+    # 获取崩溃原因及其相关规则和发现者
     def get_crash_with_rules(self, crash_reason_id: str) -> Optional[Dict]:
         crash_reason = self.get_crash_reason(crash_reason_id)
         if not crash_reason:
